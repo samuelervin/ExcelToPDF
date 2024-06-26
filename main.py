@@ -33,15 +33,16 @@ for filepath in filepaths:
 
     df = pd.read_excel(filepath, sheet_name="Sheet 1")
     # Add cells for the table headers
-    columns = list(df.columns)
+    columns = [utils.format_columname(item) for item in df.columns] #using list comprehension to convert the column names to a more readable format
+          # could also be done using [item.replace("_", " ").title() for item in list(df.columns)]                                                              
     pdf.set_font("Times", size=10)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(200, 200, 200)
-    pdf.cell(w=30, h=10, txt=utils.format_columname(columns[0]), border=1, ln=0, align="C",fill=True)
-    pdf.cell(w=70, h=10, txt=utils.format_columname(columns[1]), border=1, ln=0, align="C",fill=True)
-    pdf.cell(w=30, h=10, txt=utils.format_columname(columns[2]), border=1, ln=0, align="C",fill=True)
-    pdf.cell(w=30, h=10, txt=utils.format_columname(columns[3]), border=1, ln=0, align="C",fill=True)
-    pdf.cell(w=30, h=10, txt=utils.format_columname(columns[4]), border=1, ln=1, align="C",fill=True)
+    pdf.cell(w=30, h=10, txt=columns[0], border=1, ln=0, align="C",fill=True)
+    pdf.cell(w=70, h=10, txt=columns[1], border=1, ln=0, align="C",fill=True)
+    pdf.cell(w=30, h=10, txt=columns[2], border=1, ln=0, align="C",fill=True)
+    pdf.cell(w=30, h=10, txt=columns[3], border=1, ln=0, align="C",fill=True)
+    pdf.cell(w=30, h=10, txt=columns[4], border=1, ln=1, align="C",fill=True)
     
     for index,row in df.iterrows():       
         # Set font for the rest of the text
