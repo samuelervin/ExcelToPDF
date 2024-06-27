@@ -23,6 +23,9 @@ for filepath in filepaths:
     pdf.set_auto_page_break(auto=False, margin=0)
     pdf.add_page()
     
+    #add logo
+    pdf.image("logo.png", x=10, y=200, w=30)
+    
     pdf.set_font(family="Times",style="B", size=16)  # Set font for the
     pdf.set_text_color(100, 100, 100)  # Set text color
     pdf.cell(200, 8, txt=f"Invoice #: {invoice_number}", ln=1, align="L")  
@@ -60,7 +63,9 @@ for filepath in filepaths:
     # Add the total price
     pdf.set_font("Times", size=10, style="B")
     pdf.set_text_color(0, 0, 0)
-    pdf.cell(w=160, h=10, txt="Amount Due",  align="C")
-    pdf.cell(w=30, h=10, txt=utils.format_currency(df["total_price"].sum()), align="C",ln=1)
+    pdf.cell(w=160, h=10, txt="The Total Amount Due: ",  align="C")
+    pdf.cell(w=30, h=10, txt=utils.format_currency(df["total_price"].sum()), align="L",ln=1)
+    
+ 
     
     pdf.output(f"PDFS/{filename}.pdf")
